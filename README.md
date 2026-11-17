@@ -15,3 +15,5 @@ system developed using object-oriented programming.
 - Display requisition details
 - Generate requisition statistics
 - Test functionality using unittest
+# BACT7501-Requistion-System
+Python purchase requisition system using object-oriented programming
