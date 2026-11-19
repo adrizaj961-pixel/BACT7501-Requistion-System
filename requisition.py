@@ -53,15 +53,15 @@ class Requisition:
 
         if self.total < Decimal("500.00"):
 
-            self.status = "Approved"
+            self.status="Approved"
 
-            self.approval_reference = (
+            self.approval_reference=(
                 f"{self.staff_id}{str(self.requisition_id)[-3:]}"
             )
 
         else:
-            self.status = "Pending"
-            self.approval_reference = None
+            self.status="Pending"
+            self.approval_reference=None
 
         return self.status
 
@@ -74,21 +74,21 @@ class Requisition:
         if decision not in ("Approved", "Not approved"):
             raise ValueError("Invalid manager decision.")
 
-        if self.status != "Pending":
+        if self.status !="Pending":
             raise ValueError(
                 "Only pending requisitions can be changed."
             )
 
-        if decision == "Approved":
-            self.status = "Approved"
+        if decision=="Approved":
+            self.status="Approved"
 
-            self.approval_reference = (
+            self.approval_reference=(
                 f"{self.staff_id}{str(self.requisition_id)[-3:]}"
             )
 
         else:
-            self.status = "Not approved"
-            self.approval_reference = None
+            self.status="Not approved"
+            self.approval_reference=None
 
         return self.status
 
@@ -100,20 +100,20 @@ class Requisition:
     def requisition_statistics(requisitions):
 
         total = len(requisitions)
-        approved = 0
-        pending = 0
-        not_approved = 0
+        approved=0
+        pending=0
+        not_approved=0
 
         for request in requisitions:
 
-            if request.status == "Approved":
+            if request.status=="Approved":
                 approved += 1
 
-            elif request.status == "Pending":
+            elif request.status=="Pending":
                 pending += 1
 
-            elif request.status == "Not approved":
-                not_approved += 1
+            elif request.status=="Not approved":
+                not_approved +=1
 
         return {
             "total": total,
