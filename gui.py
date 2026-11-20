@@ -1,4 +1,3 @@
-
 import sys
 from decimal import Decimal, InvalidOperation
 
@@ -15,23 +14,22 @@ from PySide6.QtWidgets import (
     QFormLayout,
     QPushButton,
     QMessageBox
-
 )
 
 from PySide6.QtCore import QDate, Qt
 from requisition import Requisition
 
-app = QApplication(sys.argv)
+app=QApplication(sys.argv)
 
-window = QWidget()
+window=QWidget()
 window.setWindowTitle("Purchase Requisition System")
 window.resize(1000, 600)
 
 # Create a vertical layout
-layout = QVBoxLayout()
+layout=QVBoxLayout()
 
 # Create the main heading
-heading = QLabel("Purchase Requisition System")
+heading=QLabel("Purchase Requisition System")
 
 # Make the heading larger
 heading.setStyleSheet("font-size: 26px; font-weight: bold;")
@@ -40,20 +38,19 @@ heading.setStyleSheet("font-size: 26px; font-weight: bold;")
 layout.addWidget(heading)
 layout.setAlignment(heading, Qt.AlignTop)
 
-
 # Create a form for staff information
-staff_form = QFormLayout()
+staff_form=QFormLayout()
 
 # Staff name input
-staff_name_input = QLineEdit()
+staff_name_input=QLineEdit()
 staff_name_input.setPlaceholderText("Enter staff name")
 
 # Staff ID input
-staff_id_input = QLineEdit()
+staff_id_input=QLineEdit()
 staff_id_input.setPlaceholderText("Example: FN19")
 
 # Date input
-date_input = QDateEdit()
+date_input=QDateEdit()
 date_input.setCalendarPopup(True)
 date_input.setDate(QDate.currentDate())
 date_input.setDisplayFormat("dd/MM/yyyy")
@@ -67,14 +64,14 @@ staff_form.addRow("Date:", date_input)
 layout.addLayout(staff_form)
 
 # Create the purchase item form
-item_form = QFormLayout()
+item_form=QFormLayout()
 
 # Input for item name
-item_name_input = QLineEdit()
+item_name_input=QLineEdit()
 item_name_input.setPlaceholderText("Example: Keyboard")
 
 # Input for item price
-item_price_input = QLineEdit()
+item_price_input=QLineEdit()
 item_price_input.setPlaceholderText("Example: 150.00")
 
 # Add both fields to the form
@@ -84,16 +81,15 @@ item_form.addRow("Item Price ($):", item_price_input)
 # Add the item form to the main window
 layout.addLayout(item_form)
 
-
 # Store purchase items in a list
-items = []
-requisitions = []
+items=[]
+requisitions=[]
 
 # Label for displaying the total
-items_label = QLabel("Items: 0 | Total: $0.00")
+items_label=QLabel("Items: 0 | Total: $0.00")
 
 # Create the Add Item button
-add_button = QPushButton("Add Item")
+add_button=QPushButton("Add Item")
 
 # Add the button and label to the window
 layout.addWidget(add_button)
@@ -102,10 +98,10 @@ layout.addWidget(items_label)
 # Function to add an item
 def add_item():
     print("Add Item clicked")
-    name = item_name_input.text().strip()
+    name=item_name_input.text().strip()
 
     try:
-        price = Decimal(item_price_input.text().strip())
+        price=Decimal(item_price_input.text().strip())
     except InvalidOperation:
         QMessageBox.warning(
             window, "Invalid Price", "Enter a valid number."
@@ -121,7 +117,7 @@ def add_item():
 
     items.append({"name": name, "price": str(price)})
 
-    total = sum(
+    total=sum(
         (Decimal(item["price"]) for item in items),
         Decimal("0.00")
     )
@@ -143,7 +139,7 @@ submit_button = QPushButton("Submit Requisition")
 layout.addWidget(submit_button)
 
 # Create a table to display all requisitions
-table = QTableWidget()
+table=QTableWidget()
 
 # Set the number of columns
 table.setColumnCount(7)
@@ -163,7 +159,7 @@ table.setHorizontalHeaderLabels([
 layout.addWidget(table)
 
 # Display requisition statistics
-stats_label = QLabel(
+stats_label=QLabel(
     "Submitted: 0 | Approved: 0 | Pending: 0 | Not Approved: 0"
 )
 
@@ -176,7 +172,7 @@ layout.addWidget(stats_label)
 # Update the statistics displayed in the GUI
 def update_statistics():
 
-    stats = Requisition.requisition_statistics(requisitions)
+    stats=Requisition.requisition_statistics(requisitions)
 
     stats_label.setText(
         f"Submitted: {stats['total']} | "
@@ -188,9 +184,9 @@ def update_statistics():
 # Submit a new purchase requisition
 def submit_requisition():
 
-    name = staff_name_input.text().strip()
-    staff_id = staff_id_input.text().strip()
-    date = date_input.date().toString("dd/MM/yyyy")
+    name=staff_name_input.text().strip()
+    staff_id=staff_id_input.text().strip()
+    date=date_input.date().toString("dd/MM/yyyy")
 
     # Check staff information
     if not name or not staff_id:
@@ -211,7 +207,7 @@ def submit_requisition():
         return
 
     # Create the requisition object
-    request = Requisition(date, staff_id, name)
+    request=Requisition(date, staff_id, name)
 
     # Calculate the total and check approval
     request.add_requisition(items)
@@ -222,11 +218,11 @@ def submit_requisition():
     update_statistics()
 
     # Create a new row
-    row = table.rowCount()
+    row=table.rowCount()
     table.insertRow(row)
 
     # Prepare the requisition information
-    values = [
+    values=[
         request.date,
         str(request.requisition_id),
         request.staff_id,
@@ -241,7 +237,7 @@ def submit_requisition():
         table.setItem(row, column, QTableWidgetItem(value))
 
     # Prepare the reference for display
-    reference = request.approval_reference or "Not available"
+    reference=request.approval_reference or "Not available"
 
     # Display submission result
     QMessageBox.information(
@@ -265,10 +261,10 @@ def submit_requisition():
 submit_button.clicked.connect(submit_requisition)
 
 # Create manager action buttons
-manager_layout = QHBoxLayout()
+manager_layout=QHBoxLayout()
 
-approve_button = QPushButton("Approve Selected")
-reject_button = QPushButton("Not Approve Selected")
+approve_button=QPushButton("Approve Selected")
+reject_button=QPushButton("Not Approve Selected")
 
 # Place buttons side by side
 manager_layout.addWidget(approve_button)
@@ -280,9 +276,9 @@ layout.addLayout(manager_layout)
 # Process a manager's decision
 def manager_decision(decision):
 
-    row = table.currentRow()
+    row=table.currentRow()
 
-    if row == -1:
+    if row==-1:
         QMessageBox.warning(
             window,
             "No Selection",
@@ -291,18 +287,15 @@ def manager_decision(decision):
         return
 
     # Find the corresponding requisition
-    request = requisitions[row]
+    request=requisitions[row]
 
-    if request.status != "Pending":
+    if request.status !="Pending":
         QMessageBox.warning(
             window,
             "Invalid Action",
             "Only pending requisitions can be changed."
         )
         return
-
-   
-   
    
  # Apply the manager's decision
     request.respond_requisition(decision)

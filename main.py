@@ -28,7 +28,6 @@ request2.add_requisition([
     {"name": "Printer", "price": "350.00"}
 ])
 
-
 # Third requisition: exactly $500
 request3 = Requisition("17/11/2026", "FN15", "Emma Wilson")
 
@@ -38,9 +37,8 @@ request3.add_requisition([
 
 # Fourth requisition: just below $500
 request4 = Requisition("17/11/2026", "FN02", "Catlin White")
-
 request4.add_requisition([
-    {"name": "Office Supplies", "price": "499.99"}
+    {"name": "Office Supplies","price": "499.99"}
 ])
 
 # Fifth requisition: remains pending
@@ -102,7 +100,6 @@ print("Total: $", request2.total)
 print("Updated Status:", request2.status)
 print("Approval Reference:", request2.approval_reference)
 
-
 # Store all requisitions in a list
 requisitions = [
     request1,
@@ -111,7 +108,6 @@ requisitions = [
     request4,
     request5
 ]
-
 
 # Calculate statistics
 stats = Requisition.requisition_statistics(requisitions)

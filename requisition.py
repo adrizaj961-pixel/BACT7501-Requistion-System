@@ -22,7 +22,7 @@ class Requisition:
 
         if not items:
             raise ValueError("At least one item is required.")
-
+        
         total=Decimal("0.00")
         checked_items=[]
 
@@ -37,7 +37,6 @@ class Requisition:
                 "name": name,
                 "price": price
             })
-
             total+=price
 
         self.items=checked_items
@@ -52,7 +51,6 @@ class Requisition:
             raise ValueError("Add items before approval.")
 
         if self.total < Decimal("500.00"):
-
             self.status="Approved"
 
             self.approval_reference=(
@@ -64,10 +62,6 @@ class Requisition:
             self.approval_reference=None
 
         return self.status
-
-
-
-
 
     def respond_requisition(self, decision):
 
@@ -91,10 +85,6 @@ class Requisition:
             self.approval_reference=None
 
         return self.status
-
-
-
-
 
     @staticmethod
     def requisition_statistics(requisitions):

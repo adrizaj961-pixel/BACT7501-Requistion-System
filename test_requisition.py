@@ -1,7 +1,5 @@
-
 import unittest
 from requisition import Requisition
-
 
 class TestRequisition(unittest.TestCase):
 
@@ -47,7 +45,6 @@ class TestRequisition(unittest.TestCase):
     def test_manager_rejection(self):
         request=self.create_request("750.00")
         request.respond_requisition("Not approved")
-
         self.assertEqual(request.status, "Not approved")
         self.assertIsNone(request.approval_reference)
 
@@ -79,7 +76,6 @@ class TestRequisition(unittest.TestCase):
         self.assertEqual(stats["approved"], 1)
         self.assertEqual(stats["pending"], 0)
         self.assertEqual(stats["not_approved"], 1)
-
 
 if __name__=="__main__":
     unittest.main()
